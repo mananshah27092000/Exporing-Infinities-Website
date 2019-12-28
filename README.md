@@ -1,6 +1,6 @@
 # Exporing-Infinities-Website
 
-Open Login Register Folder in Terminal and write following things
+Open loginRegister Folder in Terminal and write following things
 
 1. npm install 
 /*this will install all the dependencies*/
