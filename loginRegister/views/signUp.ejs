@@ -1,0 +1,35 @@
+<% if(typeof warnings !='undefined'){ %>
+<% warnings.forEach(function(warning){ %>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <%= warning %>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% }); %>
+<% } %>
+<form action="/signUp" style="margin-left: 40%; margin-right: 40%; margin-top: 5%;" method="POST">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="name">User Name/Handle</label>
+      <input type="name" class="form-control" id="name" name="Handle"
+        value="<%= typeof Handle!='undefined'?Handle:'' %>">
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" name="email"
+        value="<%= typeof email!='undefined'?email:'' %>">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" name="password"
+        value="<%= typeof email!='undefined'?password:'' %>">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password2">Confirm Password</label>
+    <input type="password" class="form-control" id="password2" name="password2"
+      value="<%= typeof email!='undefined'?password2:'' %>">
+  </div>
+  <button type="submit" class="btn btn-primary">Sign in</button> <a href="/signIn">Login</a>
+</form>
