@@ -4,7 +4,8 @@ Open loginRegister Folder in Terminal and write following things
 
 1. npm install 
 /*this will install all the dependencies*/
-2. npm run dev
+2. put your database connection string in file loginRegister/config/db.js
+/*this will connect ypu to your database*/
+3. npm run dev
 /* server starts working on port 3000*/
-
-3.Write 'localhost:3000' on your browser
+4.Write 'localhost:3000' on your browser
