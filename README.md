@@ -8,4 +8,5 @@ Open loginRegister Folder in Terminal and write following things
 /*this will connect ypu to your database*/
 3. npm run dev
 /* server starts working on port 3000*/
+
 4.Write 'localhost:3000' on your browser
