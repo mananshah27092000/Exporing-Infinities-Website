@@ -49,6 +49,7 @@ router.post('/signUp', (req, res) => {
             })
             New.save(function (err, doc) {
               if (err) return console.log(err);
+              req.flash('success_messages', 'You have successfully registered');
               res.redirect('/signIn');
             })
           }
