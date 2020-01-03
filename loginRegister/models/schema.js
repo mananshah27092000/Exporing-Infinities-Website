@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const db = require('../config/db');
+const Schema = mongoose.Schema; 
 
-const schema = new mongoose.Schema({
-  Handle: {
+const User = new Schema({
+  username: {
     type: String,
     required: true
   },
@@ -12,14 +12,14 @@ const schema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true
+    required: false
   },
   date: {
     type: Date,
     default: Date.now
   }
-})
+});
 
-var reg_model = mongoose.model('myModel', schema);
+var User_model = mongoose.model('User', User);
 
-module.exports = reg_model;
+module.exports = User_model;
