@@ -13,6 +13,7 @@ mongoose.connect(db, { useUnifiedTopology: true , useNewUrlParser : true })
   .then(()=>console.log('MongoDB connected'))
   .catch((err)=>console.log(err));
 
+
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
 

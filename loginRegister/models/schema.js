@@ -4,11 +4,9 @@ const Schema = mongoose.Schema;
 const User = new Schema({
   username: {
     type: String,
-    required: true
   },
   email: {
     type: String,
-    required: true
   },
   password: {
     type: String,
@@ -17,7 +15,7 @@ const User = new Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  },
 });
 
 var User_model = mongoose.model('User', User);
