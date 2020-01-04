@@ -1,6 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const model = require('../models/schema')
+const passport = require('passport')
+
+//welcome page after authentication
+router.get('/welcome', (req, res) => {
+  res.render('welcome', {
+    user: req.user
+  });
+})
+
 
 //Default Root
 router.get('/', (req, res) => {
@@ -64,5 +73,46 @@ router.post('/signUp', (req, res) => {
 router.get('/signIn', (req, res) => {
   res.render('signIn');
 })
+
+router.post('/signIn', (req, res, next) => {
+  const Handle = req.body.Handle;
+  const password = req.body.password;
+  const warnings = [];
+  if (Handle == '' || password == '') {
+    warnings.push('Please fill in the missing details');
+  }
+  if (warnings.length > 0) {
+    res.render('signIn', { warnings, Handle, password });
+  }
+  else {
+    passport.authenticate('local', {
+      successRedirect: '/welcome',
+      failureRedirect: '/signIn',
+      failureFlash: true
+    })(req, res, next)
+  }
+})
+
+//facebook login
+router.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
+
+router.get('/auth/facebook/callback',
+  passport.authenticate('facebook', {
+    successRedirect: '/welcome',
+    failureRedirect: '/signIn'
+  }),
+);
+
+
+//google login
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/auth/google/callback',
+  passport.authenticate('google', {
+    successRedirect: '/welcome',
+    failureRedirect: '/signIn'
+  }),
+);
+
 
 module.exports = router;

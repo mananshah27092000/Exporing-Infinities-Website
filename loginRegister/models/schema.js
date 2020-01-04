@@ -4,20 +4,31 @@ const db = require('../config/db');
 const schema = new mongoose.Schema({
   Handle: {
     type: String,
-    required: true
   },
   email: {
     type: String,
-    required: true
   },
   password: {
     type: String,
-    required: true
   },
   date: {
     type: Date,
     default: Date.now
+  },
+  facebook: {
+    userId: String,
+    token: String,
+    name: String,
+    email: String
+  },
+  google: {
+    userId: String,
+    token: String,
+    name: String,
+    email: String
   }
+}, {
+  versionKey: false
 })
 
 var reg_model = mongoose.model('myModel', schema);
