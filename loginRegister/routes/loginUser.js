@@ -33,7 +33,7 @@ router.post('/signUp', (req, res) => {
         password : req.body.password,
         password2 : req.body.password2
     }
-
+    let warnings = [];
     if(form.username == '' || form.email == '' || form.password == '' || form.password2 == '')
         warnings.push('Please fill in the required details');
 
@@ -43,14 +43,14 @@ router.post('/signUp', (req, res) => {
     if (warnings.length > 0) 
         res.render('signUp', { warnings , username : form.username ,email: form.email, password : form.password, password2 : form.password2 });
     else {
-        User.findOne({ email: email }, (err, currentUser) => {
+        User.findOne({ email: form.email }, (err, currentUser) => {
             if (err) return console.log(err);
             if (currentUser) {
                 warnings.push('This email has already been registered');
                 res.render('signUp', { warnings, username : form.username ,email: form.email, password : form.password, password2 : form.password2  });
             }
             else {
-                User.findOne({ username : username }, (err, currentUser) => {
+                User.findOne({ username : form.username }, (err, currentUser) => {
                     if (err) return console.log(err);
                     if (currentUser) {
                         warnings.push('This username has already been taken. Try another!!!');
@@ -58,7 +58,7 @@ router.post('/signUp', (req, res) => {
                     }
                     else {
                         bcrypt.genSalt(10,(err,salt)=>{
-                            bcrypt.hash(password,salt,(err,hash)=>{
+                            bcrypt.hash(form.password,salt,(err,hash)=>{
                                 form.password = hash;
                                 const NewUser = new User({
                                     username : form.username, 
@@ -67,7 +67,7 @@ router.post('/signUp', (req, res) => {
                                 })
                                 NewUser.save(function (err, user) {
                                     if (err) return console.log(err);
-                                    res.redirect('/signIn');
+                                    res.redirect('/users');
                                 })
                             })
                         })
@@ -78,10 +78,12 @@ router.post('/signUp', (req, res) => {
     }
 })
 
-//Form Response from Sign In
-router.post('/signIn',(req,res)=>{
 
-})
+//Form Response from Sign In
+router.post('/signIn', 
+    passport.authenticate('local', { failureRedirect: '/loginUser/signIn',successRedirect : '/users' },
+));
+
 
 
 router.get('/google',passport.authenticate('google',{
@@ -93,11 +95,13 @@ router.get('/google/callback',passport.authenticate('google'),(req,res)=>{
     res.redirect('/users/');
 });
 
+
+
 router.get('/facebook',passport.authenticate('facebook',{
-    scope : ['profile','email']
+    scope : ['email']
 }));
 
-router.get('/facebook/callback',passport.authenticate('facebook'),(req,res)=>{
+router.get('/facebook/callback',passport.authenticate('facebook',{failureRedirect:'/loginUser/signIn'}),(req,res)=>{
     // res.send('Hello');
     res.redirect('/users/');
 });

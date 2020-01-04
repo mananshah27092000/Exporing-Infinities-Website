@@ -1,18 +1,19 @@
-<form action="/signIn" style="margin-left: 40%; margin-right: 40%; margin-top: 5%;" id="form" method="POST">
+<form action="/loginUser/signIn" style="margin-left: 40%; margin-right: 40%; margin-top: 5%;" id="form" method="POST">
   <div class="form-group">
-    <label for="name">User Name</label>
-    <input type="username" class="form-control" id="Handle" aria-describedby="emailHelp" name="Handle">
+    <label for="name">Email</label>
+    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email">
   </div>
   <div class="form-group">
-    <labpl[el for="password">Password</labpl[el>
+    <label for="password">Password</labpl[el>
     <input type="password" class="form-control" id="password" name="password"
       value="<%= typeof email!='undefined'?password:'' %>">
-    <a href="/forgot_password">Forgot Password?</a>
+    <a href="#">Forgot Password?</a>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button> <a href="loginUser/signUp">Registartion</a>
+  <button type="submit" class="btn btn-primary">Submit</button> <a href="/loginUser/signUp">Registartion</a>
 </br>
 </br>
 
 <a class="nav-link" href="/loginUser/google">Google</a>
+<a class="nav-link" href="/loginUser/facebook">facebook</a>
 
 </form>
